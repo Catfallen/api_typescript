@@ -5,12 +5,12 @@ import { hashPassword,comparePassword } from "../utils/hash";
 import { generateToken } from "../utils/token";
 import { Usuario } from "../models/Usuario";
 import { UserLogin} from "../models/Login";
-import { login } from "./auth.controller";
 export default {
     // LISTAR TODOS
     async index(req: Request, res: Response) {
+        console.log(req.userId);
         try {
-            const usuarios = await prisma.usuario.findMany();
+            const usuarios:Usuario[] = await prisma.usuario.findMany();
             return res.json(usuarios);
         } catch (err) {
             return res.status(500).json({ error: "Erro ao listar usuários" });
@@ -43,7 +43,7 @@ export default {
     },
 
     // CRIAR
-    async create(req: Request, res: Response) {
+    async register(req: Request, res: Response) {
     try {
         const data: UsuarioCreateDTO = req.body;
         console.log(data);

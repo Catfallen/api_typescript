@@ -6,7 +6,7 @@ const router = Router();
 // Rotas REST
 router.get("/", userController.index);
 router.post("/login", userController.login);
-router.post("/",userController.create);
+router.post("/register",userController.register);
 router.get('/private',authMiddleware,userController.index);
 
 //router.put("/:id", userController.update);
