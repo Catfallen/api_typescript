@@ -1,6 +1,8 @@
 import { User } from "../models/User";
 
-export const UserService = {
+import { generateToken } from "../utils/token";
+
+export default {
     async criarUsuario(nome: string, email: string, senha: string) {
         const existe = await User.findOne({ email }); //verifica se o usuario existe
         
@@ -20,6 +22,8 @@ export const UserService = {
         
         if (!senhaValida) throw new Error("Senha inválida");
         
-        return user;
+        const token:string = generateToken({id:user.id,nome:user.nome,email:user.email});
+
+        return token;
     }
 }

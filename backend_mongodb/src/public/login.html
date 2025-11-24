@@ -12,9 +12,14 @@
     <input type="email" id="email" placeholder="Email" required>
     <input type="password" id="senha" placeholder="Senha" required>
     <button id="loginBtn">Entrar</button>
+    <a id="register">Ainda não fez o cadastro</a>
     <div class="error" id="error"></div>
   </div>
   <script src="/scripts/api_url.js"></script>
   <script src="/scripts/login.js"></script>
+  <script>
+    const a = document.getElementById("register");
+    a.setAttribute("href",`${api_url}/public/register`)
+  </script>
 </body>
 </html>

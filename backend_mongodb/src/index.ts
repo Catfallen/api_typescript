@@ -1,10 +1,13 @@
 import express from "express";
 import { Request,Response } from "express";
 import dotenv from "dotenv";
+
 import {connectDB} from "./config/database";
 
 import cookieParser from "cookie-parser";
+
 import path from "path";
+
 import cors from "cors";
 //connectDB()
 dotenv.config();
@@ -12,9 +15,14 @@ dotenv.config();
 connectDB();
 
 const app = express();
+
+
 app.use(cors());
+
 app.use(express.json());
+
 app.use(cookieParser());
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 
@@ -31,6 +39,7 @@ app.use("/teste",async(req:Request,res:Response)=>{
 });
 
 app.use("/user",userRoutes);
+
 app.use("/public",publicRoutes);
 
 

@@ -1,9 +1,5 @@
 import { Request, Response } from "express";
-import { UserService } from "../service/user.service";
-import jwt from "jsonwebtoken";
-import { TokenPayload } from "../models/TokenPayload";
-
-
+import UserService from "../service/user.service";
 
 export default {
     async registrar(req: Request, res: Response) {
@@ -16,19 +12,13 @@ export default {
             return res.status(400).json({ erro: error.message });
         }
     },
-
     async login(req: Request, res: Response) {
         try {
             const { email, senha } = req.body;
 
-            const user = await UserService.login(email, senha);
-
-            const token:string = jwt.sign(
-                { id: user._id,email: user.email,nome:user.nome},
-                process.env.JWT_SECRET as string,
-                { expiresIn: "7d" }
-            );
-
+            const token:string = await UserService.login(email, senha);
+            console.log("login");
+            console.log(token);
             res.cookie("token", token, {
                 httpOnly: true,
                 secure: false,

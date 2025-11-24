@@ -25,7 +25,7 @@ loginBtn.addEventListener('click', async () => {
             errorDiv.style.color = 'green';
             errorDiv.textContent = 'Login realizado com sucesso!';
             // Redirecionar ou carregar página privada
-            // window.location.href = '/dashboard.html';
+            window.location.href = `${api_url}/public/private`;
         } else {
             const data = await response.json();
             errorDiv.style.color = 'red';

@@ -1,4 +1,4 @@
-backend
-frontend
-mongodb
-server_old
+/backend
+/frontend
+/mongodb
+/server_old
