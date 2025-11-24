@@ -1,18 +1,16 @@
 import { Router } from "express";
 import userController from "../controller/user.controller";
 import { Request,Response } from "express";
-import authMiddleware from "../middleware/authMiddleware" //não reconhece o authmiddleware
+import authMiddleware from "../middleware/authMiddleware"
 
 const router:Router = Router();
 
 router.post("/register", userController.registrar);
 router.post("/login", userController.login);
 
+
 router.get('/private',authMiddleware,async(req:Request,res:Response)=>{
-    res.send(`<h1>rota privada</h1>
-            <p>Id: ${req.userId}</p>
-            <p>Email: ${req.userEmail}</p>
-        `);
-})
+    res.status(200).json({id: req.userId,email: req.userEmail,nome:req.userNome})
+});
 
 export default router;

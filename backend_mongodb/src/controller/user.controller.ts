@@ -3,13 +3,15 @@ import { UserService } from "../service/user.service";
 import jwt from "jsonwebtoken";
 import { TokenPayload } from "../models/TokenPayload";
 
+
+
 export default {
     async registrar(req: Request, res: Response) {
         try {
             const { nome, email, senha } = req.body;
 
             const user = await UserService.criarUsuario(nome, email, senha);
-            return res.status(201).json(user);
+            return res.status(201).json({"msg":"Usuario cadastrado com sucesso"});
         } catch (error: any) {
             return res.status(400).json({ erro: error.message });
         }
@@ -22,14 +24,14 @@ export default {
             const user = await UserService.login(email, senha);
 
             const token:string = jwt.sign(
-                { id: user._id,email: user.email},
+                { id: user._id,email: user.email,nome:user.nome},
                 process.env.JWT_SECRET as string,
                 { expiresIn: "7d" }
             );
 
             res.cookie("token", token, {
                 httpOnly: true,
-                secure: false,     // coloque TRUE em produção (HTTPS)
+                secure: false,
                 sameSite: "strict",
                 maxAge: 7 * 24 * 60 * 60 * 1000
             });

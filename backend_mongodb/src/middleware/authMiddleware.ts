@@ -23,12 +23,12 @@ export default function authMiddleware(req:Request,res:Response,next:NextFunctio
         let decoded: TokenDecoded;
         try{
             decoded = verifyToken(token);
-            
         }catch(err){
             return res.status(403).json({'msg':"Token invalido ou expirado"});
         }
         req.userId = decoded.id;
         req.userEmail = decoded.email;
+        req.userNome = decoded.nome;
         return next();
     }catch(err){
         return res.status(500).json({'erro':err})

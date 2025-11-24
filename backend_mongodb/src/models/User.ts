@@ -11,8 +11,8 @@ export interface IUser extends Document {
 const UserSchema = new Schema<IUser>({
     nome: { type: String, required: true },
     email: { type: String, required: true, unique: true },
-    senha: { type: String, required: true }
-}, { timestamps: true }); //
+    senha: { type: String, required: true },
+}, { timestamps: true });
 
 UserSchema.pre("save", async function (next) {
     if (!this.isModified("senha")) return next();
